@@ -21,7 +21,6 @@ class ExoPlayerActivity : AppCompatActivity() {
         mBinding.exoPlayerView.player = exoPlayerVM.preparePlayer()
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         exoPlayerVM.releasePlayer()

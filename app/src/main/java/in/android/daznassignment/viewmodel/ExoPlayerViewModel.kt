@@ -94,7 +94,6 @@ class ExoPlayerViewModel(application: Application) : AndroidViewModel(applicatio
 
     private fun onForwardButtonClick() {
         _forwardClickCount.value = getTotalCount(forwardClickCount.value)
-
         analytics.logEvent(FORWARD_BUTTON_CLICK, null)
     }
 
