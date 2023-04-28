@@ -88,7 +88,6 @@ class ExoPlayerViewModel(application: Application) : AndroidViewModel(applicatio
 
     private fun onPauseButtonClick() {
         _pauseClickCount.value = getTotalCount(pauseClickCount.value)
-        (pauseClickCount.value ?: 0) + 1
         analytics.logEvent(PAUSE_BUTTON_CLICK, null)
     }
 
