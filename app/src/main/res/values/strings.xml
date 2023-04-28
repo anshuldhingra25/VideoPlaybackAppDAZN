@@ -5,7 +5,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="pauseCount">Pause count:</string>
-    <string name="forwardCount">Forward count:</string>
-    <string name="backwardCount">Backward count:</string>
+    <string name="pauseCount">Pause count : </string>
+    <string name="forwardCount">Forward count : </string>
+    <string name="backwardCount">Backward count : </string>
 </resources>

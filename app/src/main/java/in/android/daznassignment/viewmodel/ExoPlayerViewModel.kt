@@ -1,8 +1,9 @@
 package `in`.android.daznassignment.viewmodel
 
-import ExoPlayerEventListener
-import `in`.android.daznassignment.R
+import `in`.android.daznassignment.constants.BACKWARD_BUTTON_CLICK
+import `in`.android.daznassignment.constants.FORWARD_BUTTON_CLICK
 import `in`.android.daznassignment.constants.MPD_FILE_LINK
+import `in`.android.daznassignment.constants.PAUSE_BUTTON_CLICK
 import android.app.Application
 import android.content.Context
 import android.net.Uri
@@ -11,28 +12,29 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.source.dash.DashMediaSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.firebase.analytics.FirebaseAnalytics
 
 class ExoPlayerViewModel(application: Application) : AndroidViewModel(application),
-    ExoPlayerEventListener {
+    Player.Listener {
 
     private var exoPlayer: ExoPlayer? = null
     private val analytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(application)
 
-    private val _pauseClickCount = MutableLiveData<String>()
-    val pauseClickCount: LiveData<String>
+    private val _pauseClickCount = MutableLiveData<Int>()
+    val pauseClickCount: LiveData<Int>
         get() = _pauseClickCount
 
-    private val _forwardClickCount = MutableLiveData<String>()
-    val forwardClickCount: LiveData<String>
+    private val _forwardClickCount = MutableLiveData<Int>()
+    val forwardClickCount: LiveData<Int>
         get() = _forwardClickCount
 
-    private val _backwardClickCount = MutableLiveData<String>()
-    val backwardClickCount: LiveData<String>
+    private val _backwardClickCount = MutableLiveData<Int>()
+    val backwardClickCount: LiveData<Int>
         get() = _backwardClickCount
-
+    private var lastPlaybackPosition = 0L
     private fun getPlayer(context: Context): ExoPlayer {
         if (exoPlayer == null) {
             exoPlayer = ExoPlayer.Builder(context).build()
@@ -64,22 +66,42 @@ class ExoPlayerViewModel(application: Application) : AndroidViewModel(applicatio
         exoPlayer?.release()
     }
 
-    override fun onPauseButtonClick() {
-        _pauseClickCount.value = getApplication<Application?>().getString(R.string.pauseCount)
-            .plus(pauseClickCount.value ?: 0) + 1
-        analytics.logEvent("pause_button_click", null)
+    override fun onIsPlayingChanged(isPlaying: Boolean) {
+        super.onIsPlayingChanged(isPlaying)
+        if (isPlaying) return
+        onPauseButtonClick()
     }
 
-    override fun onForwardButtonClick() {
-        _forwardClickCount.value = getApplication<Application?>().getString(R.string.forwardCount)
-            .plus(forwardClickCount.value ?: 0) + 1
-        analytics.logEvent("forward_button_click", null)
+    override fun onPositionDiscontinuity(
+        oldPosition: Player.PositionInfo,
+        newPosition: Player.PositionInfo,
+        reason: Int
+    ) {
+        val currentPlaybackPosition = newPosition.positionMs
+        if (currentPlaybackPosition > lastPlaybackPosition) {
+            onForwardButtonClick()
+        } else if (currentPlaybackPosition < lastPlaybackPosition) {
+            onBackwardButtonClick()
+        }
+        lastPlaybackPosition = currentPlaybackPosition
     }
 
-    override fun onBackwardButtonClick() {
-        _backwardClickCount.value = getApplication<Application?>().getString(R.string.backwardCount)
-            .plus(backwardClickCount.value ?: 0) + 1
-        analytics.logEvent("backward_button_click", null)
+    private fun onPauseButtonClick() {
+        _pauseClickCount.value = getTotalCount(pauseClickCount.value)
+        (pauseClickCount.value ?: 0) + 1
+        analytics.logEvent(PAUSE_BUTTON_CLICK, null)
     }
 
+    private fun onForwardButtonClick() {
+        _forwardClickCount.value = getTotalCount(forwardClickCount.value)
+
+        analytics.logEvent(FORWARD_BUTTON_CLICK, null)
+    }
+
+    private fun onBackwardButtonClick() {
+        _backwardClickCount.value = getTotalCount(backwardClickCount.value)
+        analytics.logEvent(BACKWARD_BUTTON_CLICK, null)
+    }
+
+    private fun getTotalCount(value: Int?) = (value ?: 0) + 1
 }
