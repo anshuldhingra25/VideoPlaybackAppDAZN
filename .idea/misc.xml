@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Dazn Assignment/app/src/main/res/layout/activity_exo_player.xml" value="0.23802083333333332" />
         <entry key="..\:/Dazn Assignment/app/src/main/res/layout/activity_main.xml" value="0.1157548125633232" />
+        <entry key="..\:/Dazn Assignment/app/src/main/res/layout/activity_video.xml" value="0.22395833333333334" />
+        <entry key="..\:/Dazn Assignment/app/src/main/res/layout/activity_video_player.xml" value="0.23697916666666666" />
       </map>
     </option>
   </component>
