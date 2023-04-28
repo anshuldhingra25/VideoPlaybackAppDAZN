@@ -1,13 +1,14 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "in.udemy.myapplication"
+        applicationId "in.android.daznassignment"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -51,4 +52,8 @@ dependencies {
     implementation "com.google.android.exoplayer:exoplayer-core:$exoPlayerVersion"
     implementation "com.google.android.exoplayer:exoplayer-dash:$exoPlayerVersion"
     implementation "com.google.android.exoplayer:exoplayer-ui:$exoPlayerVersion"
+
+    // Adding Firebase dependencies
+    implementation platform('com.google.firebase:firebase-bom:31.5.0')
+    implementation "com.google.firebase:firebase-analytics"
 }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "27362035616",
+    "project_id": "dazn-9d6c9",
+    "storage_bucket": "dazn-9d6c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27362035616:android:a8eef09fdfd5d1238806c5",
+        "android_client_info": {
+          "package_name": "in.android.daznassignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27362035616-o7epa96mhni4oo514fpcekmmopt4pb5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmlcc0V2d8WQmK0mjHvtFYVnRWEB8N-6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27362035616-o7epa96mhni4oo514fpcekmmopt4pb5g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

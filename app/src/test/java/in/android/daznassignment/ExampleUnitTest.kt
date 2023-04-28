@@ -1,4 +1,4 @@
-package `in`.udemy.daznassignment
+package `in`.android.daznassignment
 
 import org.junit.Test
 

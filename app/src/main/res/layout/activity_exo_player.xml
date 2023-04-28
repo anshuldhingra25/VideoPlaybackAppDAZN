@@ -3,6 +3,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="exoPlayerViewModel"
+            type="in.android.daznassignment.viewmodel.ExoPlayerViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,15 +22,15 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:resize_mode="fixed_width"
+            app:resize_mode="fit"
             app:use_controller="true" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvPauseCount"
             style="@style/DAZNTextStyle"
+            text="@{`Pause Count: ` + exoPlayerViewModel.pauseClickCount}"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:text="@string/pauseCount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/exoPlayerView" />
@@ -34,7 +40,7 @@
             style="@style/DAZNTextStyle"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:text="@string/forwardCount"
+            android:text="@{`Forward Clicks: ` + exoPlayerViewModel.forwardClickCount}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvPauseCount" />
@@ -44,7 +50,7 @@
             style="@style/DAZNTextStyle"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
-            android:text="@string/backwardCount"
+            android:text="@{`Backward Clicks: ` + exoPlayerViewModel.backwardClickCount}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvForwardCount" />
